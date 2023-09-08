@@ -60,7 +60,7 @@ exports.chatbotController = async (req, res) => {
         const { data } = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: `Answer question similar to how CleverBot would.
-            Me:'What is your name?'
+            Me:'What is your name
             CleverBot : 'I am CleverBot'
             Me:'${text}`,
             max_tokens: 300,
@@ -105,6 +105,31 @@ exports.jsconverterController = async (req, res) => {
         })
     }
 }
+
+exports.CppconverterController = async (req, res) => {
+    try {
+        const { text } = req.body;
+        const { data } = await openai.createCompletion({
+            model: "text-davinci-002",
+            prompt: `/*Convert these instructions into C++ code \n${text}`,
+            max_tokens: 400,
+            temperature: 0.2,
+        })
+        if (data) {
+            if (data.choices[0].text) {
+                return res.status(200).json(data.choices[0].text);
+            }
+        }
+
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(404).json({
+            message: err.message
+        })
+    }
+}
+
 exports.scifiController = async (req, res) => {
     try {
         const { text } = req.body;

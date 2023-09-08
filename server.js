@@ -36,7 +36,7 @@ const PORT = process.env.PORT || 8080;
 
 //API routes
 app.use('/api/v1/auth', authRoutes);
-app.use("/api/v1/openai", require("./routes/openaiRoutes"));
+app.use("/openai", require("./routes/openaiRoutes"));
 
 app.listen(PORT, () => {
     console.log(`Server is running on the port no ${PORT}`.bgGreen.white);
